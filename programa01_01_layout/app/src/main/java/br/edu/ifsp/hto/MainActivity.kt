@@ -33,82 +33,116 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Programa01_layoutTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    GreetingCard(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                GreetingCard()
             }
         }
     }
 }
 
 
-// 1. O código abaixo é uma annotation que indica que esta função é um componente.
-// composable
+/*
+TODO(1)O código abaixo é uma anotação (annotation) que indica que esta função é um composable.
+ A interface gráfica no Android é definida de maneira declarativa (UI declarativa). Anteriormente
+ a interface era definida em arquivos xml separados. No Android o framework Jetpack Compose permite
+ a definição de UI de maneira declarativa.
+ */
 @Composable
-fun GreetingCard(modifier: Modifier = Modifier) {
-    // 2. Adicionar o primeiro elemento, que é uma coluna.
+fun GreetingCard() {
+    /*
+     TODO(2) Adicionar o primeiro elemento, que é uma coluna. Uma coluna faz com que todos elementos
+      contidos em seu iteriro (dentro dela) apareçam um abaixo do outro na ordem em que estão
+      definidos.
+     */
     Column(
         modifier = Modifier
-            .fillMaxSize() // Faz com que a coluna ocupe o tamanho máximo disponível referente ao
-            // objeto que está inserido. Como este é o primeiro elemento, refere-se
-            // à tela.
-            .padding(20.dp), // Adiciona espaçamento no topo, embaixo, esquerda e direita
-        horizontalAlignment = Alignment.CenterHorizontally, //define o alinhamento horizontal dos
-        // elementos internos (filho) à coluna.
-        verticalArrangement = Arrangement.Center // define o alinhamento vertical dos elementos
-        // internos (filho) à coluna.
+            /*
+            TODO(3) O fillMaxSize() faz com que a coluna ocupe o tamanho máximo disponível referente
+             ao objeto em que está inserida. Como este é o primeiro elemento, neste caso refere-se
+             à tela total.
+             */
+            .fillMaxSize()
+            /*
+            TODO(4) O padding adiciona um espaçamento no topo, abaixo, a esquerda e a direita. O dp
+             significa density-independent pixel e é uma unidade de medida usada para garantir que
+             elementos da interface tenham tamanhos consistentes em diferentes tamanhos e densidades
+              de tela.
+             */
+            .padding(20.dp),
+        /*
+        TODO(5) define o alinhamento horizontal dos elementos internos (filhoS) da coluna.
+         */
+        horizontalAlignment = Alignment.CenterHorizontally,
+        /*
+        TODO(6) define o alinhamento vertical dos elementos internos (filhos) da coluna.
+         */
+        verticalArrangement = Arrangement.Center
     ) {
-        // 3. Carrega uma imagem da pasta res/drawable
+        /*
+        TODO(7) Carrega uma imagem do diretório res/drawable
+         */
         val picture = painterResource(R.drawable.picture)
         Image(
             modifier = Modifier
-                .size(100.dp), // Define o tamanho do elemento (no caso uma figura).
-            painter = picture, // Define a figura, que é a variável picture.
-            contentDescription = "Foto", // Define uma descrição textual do elemento.
-            // Utilizado para acessibilidade.
+                // TODO(8) Define o tamanho do elemento (no caso uma figura).
+                .size(100.dp),
+            // TODO(9) Define a figura, que está na variável picture.
+            painter = picture,
+            /*
+            TODO(10) Define uma descrição para a figura. Utilizado para acessibilidade.
+             */
+            contentDescription = "Foto",
         )
-        // 4. Adicionar dois textos.
+        // TODO(11) Adicionar dois textos. Um para o nome da pessoa e outro para o cargo/função.
         Text("Jen Doe")
         Text("System Developer")
 
-        // 5. Criar uma coluna, para manter as descrições do cartão de apresentação.
+        // TODO(12) Criar uma coluna, para manter as descrições do cartão de apresentação.
         Column(
             modifier = Modifier
                 .padding(top = 30.dp),
         ) {
-            // 6. Dentro da coluna é definida uma linha.
-            // Esta linha mantém o dado de telefone.
+            /*
+             TODO(13) Dentro da coluna é definida uma linha. Esta linha mantém o dado de telefone.
+             */
             Row(
                 modifier = Modifier
                     .padding(bottom = 10.dp),
-                horizontalArrangement = Arrangement.Start, // Define que os elementos vão aparecer
-                // no início da linha
+                /*
+                TODO(14) Define que os elementos desta linha vão aparecer no início.
+                 */
+                horizontalArrangement = Arrangement.Start,
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Call, // Utilização de um ícone de telefone.
+                    // TODO(15) Utilização de um ícone de telefone.
+                    imageVector = Icons.Filled.Call,
                     contentDescription = "Telefone",
-                    tint = Color.Black // Definição da cor do ícone.
+                    // TODO(16) Definição da cor do ícone.
+                    tint = Color.Black
                 )
-                Text("+55 19 9999-99999") // Texto do telefone.
+                // TODO(17) Texto do telefone.
+                Text("+55 19 9999-99999")
             }
-            // 7. Dentro da coluna é definida outra linha.
-            // Esta linha mantém o ícone de compartilhar e o perfil do usuário.
+            /*
+            TODO(18) Dentro da coluna é definida outra linha. Esta linha mantém o ícone de
+             compartilhar e o perfil do usuário no Instagram.
+             */
             Row(
                 modifier = Modifier
                     .padding(bottom = 10.dp),
                 horizontalArrangement = Arrangement.Start
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Share, // Use the desired icon here
+                    // TODO(19) Definição do ícone de compartilhar.
+                    imageVector = Icons.Filled.Share,
                     contentDescription = "Share",
                     tint = Color.Black,
                 )
                 Text("@Developer")
             }
-            // 8. Dentro da coluna é definida uma última linha.
-            // Esta linha mantém o ícone e as informações de e-mail.
+            /*
+            TODO(20) Dentro da coluna é definida uma última linha. Esta linha mantém o ícone e as
+             informações de e-mail.
+             */
             Row(
                 modifier = Modifier
                     .padding(bottom = 10.dp),
@@ -127,7 +161,10 @@ fun GreetingCard(modifier: Modifier = Modifier) {
 
 }
 
-// 9. Define uma prévia do elemento GreetingCard
+/*
+ TODO(20) Define uma prévia do elemento GreetingCard. Utilizado para verificar como está o layout
+  do componente sem a necessidade de compilar e emular o aplicativo.
+ */
 @Preview(showBackground = true)
 @Composable
 fun GreetingCardPreview() {

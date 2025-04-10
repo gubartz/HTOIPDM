@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -26,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,23 +38,34 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GasolinaOuAlcoolTheme {
-                GasolinaOuAlcool()
+                GasolinaOuAlcoolApp()
             }
         }
     }
 }
 
 @Composable
-fun GasolinaOuAlcool() {
+fun GasolinaOuAlcoolApp() {
+    /*
+     TODO(1) Definimos as variáveis observáveis para os preços da gasolina e do álcool, bem como
+      para o melhor combustível.
+     */
     var melhorCombustivel by remember { mutableStateOf("") }
     var precoGasolina by remember { mutableStateOf("") }
     var precoAlcool by remember { mutableStateOf("") }
 
+    val textFieldStyle = TextStyle(
+        fontSize = 18.sp
+    )
+
     Column(
+
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color(0xFF2196F3))
-            .windowInsetsPadding(WindowInsets.safeDrawing),
+            // TODO(2) O safeDrawingPadding garante que a coluna vai ser respeitar a barra do topo.
+            .safeDrawingPadding(),
+        // TODO(3) Colocamos o alinhamento dos objetos a partir do topo.
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -69,8 +80,13 @@ fun GasolinaOuAlcool() {
                     fontSize = 32.sp
                 )
             )
+
             Text(
                 text = melhorCombustivel,
+                /*
+                 TODO(4) O melhor combustível será mostrado em vermelho, com tamanho 40 e em
+                  negrito (FontWeight.Bold).
+                 */
                 style = TextStyle(
                     color = Color.Red,
                     fontSize = 40.sp,
@@ -79,13 +95,21 @@ fun GasolinaOuAlcool() {
             )
             TextField(
                 value = precoGasolina,
+                /*
+                TODO(5) O it é uma forma abreviada de se referir ao valor que foi passado para a
+                 função dentro das chaves {}.
+                 */
                 onValueChange = {
                     precoGasolina = it
                 },
                 label = {
-                    Text(text = "Preço da Gasolina")
+                    Text(
+                        text = "Preço da Gasolina",
+                        style = textFieldStyle
+                    )
                 },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = textFieldStyle
             )
 
             TextField(
@@ -94,22 +118,37 @@ fun GasolinaOuAlcool() {
                     precoAlcool = it
                 },
                 label = {
-                    Text(text = "Preço da Álcool")
+                    Text(
+                        text = "Preço da Álcool",
+                        style = textFieldStyle
+                    )
                 },
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                textStyle = TextStyle(textAlign = TextAlign.Center)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = textFieldStyle
             )
 
             Button(onClick = {
+                /*
+                TODO(6) O cálculo só deve ser feito se os preços do álcool e da gasolina tenham sido
+                 fornecidos.
+                 */
                 if (precoAlcool.isNotBlank() && precoGasolina.isNotBlank()) {
-                    if (precoAlcool.toDouble() / precoGasolina.toDouble() < 0.7) {
-                        melhorCombustivel = "Álcool"
+                    /*
+                     TODO(7) Essa é uma construção válida em kotlin, chamada de expressão
+                      condicional if. Ou seja, o if não é apenas uma estrutura de controle, mas
+                      retorna um valor podendo ser uma expressão.
+                     */
+                    melhorCombustivel = if (precoAlcool.toDouble() / precoGasolina.toDouble() < 0.7) {
+                        "Álcool"
                     } else {
-                        melhorCombustivel = "Gasolina"
+                        "Gasolina"
                     }
                 }
             }) {
-                Text("Calcular")
+                Text(
+                    text = "Calcular",
+                    style = textFieldStyle
+                )
             }
         }
     }
@@ -117,8 +156,8 @@ fun GasolinaOuAlcool() {
 
 @Preview(showBackground = true)
 @Composable
-fun GasolinaOuAlcoolPreview() {
+fun GasolinaOuAlcoolAppPreview() {
     GasolinaOuAlcoolTheme {
-        GasolinaOuAlcool()
+        GasolinaOuAlcoolApp()
     }
 }

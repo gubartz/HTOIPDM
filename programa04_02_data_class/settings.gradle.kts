@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "exercicio01_02_gasolina_ou_alcool"
+rootProject.name = "programa04_02_data_class"
 include(":app")
  

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Operacoes Basicas"
+rootProject.name = "programa03_01_operacoes_basicas"
 include(":app")

@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -33,25 +34,28 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GasolinaOuAlcoolTheme {
-                GasolinaOuAlcool(
-                    modifier = Modifier
-                )
+                GasolinaOuAlcoolApp()
             }
         }
     }
 }
 
 @Composable
-fun GasolinaOuAlcool(modifier: Modifier = Modifier) {
+fun GasolinaOuAlcoolApp() {
     var melhorCombustivel by remember { mutableStateOf("") }
     var precoGasolina by remember { mutableStateOf("") }
     var precoAlcool by remember { mutableStateOf("") }
 
+    val textFieldStyle = TextStyle(
+        fontSize = 18.sp
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xFF2196F3)),
-        verticalArrangement = Arrangement.Center,
+            .background(color = Color(0xFF2196F3))
+            .safeDrawingPadding(),
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
@@ -66,14 +70,17 @@ fun GasolinaOuAlcool(modifier: Modifier = Modifier) {
                 )
             )
 
+            /*
+             TODO(1) Removemos o botão e como as variáveis são observáveis, a medida que os valores
+              são digitados na interface gráfica o cálculo é realizado.
+             */
             if (precoAlcool.isNotBlank() && precoGasolina.isNotBlank()) {
-                if (precoAlcool.toDouble() / precoGasolina.toDouble() < 0.7) {
-                    melhorCombustivel = "Álcool"
+                melhorCombustivel = if (precoAlcool.toDouble() / precoGasolina.toDouble() < 0.7) {
+                    "Álcool"
                 } else {
-                    melhorCombustivel = "Gasolina"
+                    "Gasolina"
                 }
             }
-
 
             Text(
                 text = melhorCombustivel,
@@ -89,9 +96,13 @@ fun GasolinaOuAlcool(modifier: Modifier = Modifier) {
                     precoGasolina = it
                 },
                 label = {
-                    Text(text = "Preço da Gasolina")
+                    Text(
+                        text = "Preço da Gasolina",
+                        style = textFieldStyle
+                    )
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = textFieldStyle
             )
 
             TextField(
@@ -100,9 +111,13 @@ fun GasolinaOuAlcool(modifier: Modifier = Modifier) {
                     precoAlcool = it
                 },
                 label = {
-                    Text(text = "Preço da Álcool")
+                    Text(
+                        text = "Preço da Álcool",
+                        style = textFieldStyle
+                    )
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = textFieldStyle
             )
         }
     }
@@ -110,8 +125,8 @@ fun GasolinaOuAlcool(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun GasolinaOuAlcoolAppPreview() {
     GasolinaOuAlcoolTheme {
-        GasolinaOuAlcool()
+        GasolinaOuAlcoolApp()
     }
 }
