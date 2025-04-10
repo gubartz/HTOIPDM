@@ -1,6 +1,5 @@
-package br.edu.ifsp.hto.dataclass.model
+package br.edu.ifsp.hto.dataclass.domain
 
-// TODO(1) Criação da data class para representar uma tarefa
 data class Tarefa(
     val id: Long,
     val titulo: String,
@@ -8,7 +7,6 @@ data class Tarefa(
     val ehFinalizada: Boolean
 )
 
-// TODO(2) Criação de algumas tarefas manualmente
 // fake dados
 val tarefa1 = Tarefa(
     1,

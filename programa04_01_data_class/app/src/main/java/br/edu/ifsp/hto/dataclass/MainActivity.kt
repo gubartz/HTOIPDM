@@ -27,10 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import br.edu.ifsp.hto.dataclass.model.Tarefa
-import br.edu.ifsp.hto.dataclass.model.tarefa1
-import br.edu.ifsp.hto.dataclass.model.tarefa2
-import br.edu.ifsp.hto.dataclass.model.tarefa3
+import br.edu.ifsp.hto.dataclass.domain.Tarefa
+import br.edu.ifsp.hto.dataclass.domain.tarefa1
+import br.edu.ifsp.hto.dataclass.domain.tarefa2
+import br.edu.ifsp.hto.dataclass.domain.tarefa3
 import br.edu.ifsp.hto.dataclass.ui.theme.DataClassTheme
 
 class MainActivity : ComponentActivity() {
